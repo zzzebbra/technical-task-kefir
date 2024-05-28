@@ -1,45 +1,55 @@
 {
-    "name": "technical_task",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "prettier": "prettier --write '*/**/*.{ts,tsx,js,jsx,css,scss,json}'"
-    },
-    "dependencies": {
-        "@testing-library/jest-dom": "5.16.4",
-        "@testing-library/react": "13.3.0",
-        "@testing-library/user-event": "13.5.0",
-        "@types/jest": "27.5.2",
-        "@types/node": "16.11.41",
-        "@types/react": "18.0.14",
-        "@types/react-dom": "18.0.5",
-        "axios": "0.27.2",
-        "axios-mock-adapter": "1.20.0",
-        "prettier": "2.3.2",
-        "react": "18.2.0",
-        "react-dom": "18.2.0",
-        "react-scripts": "5.0.1",
-        "typescript": "4.7.4"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
+  "name": "technical_task",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "prettier": "prettier --write '*/**/*.{ts,tsx,js,jsx,css,scss,json}'"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.37.1",
+    "@tanstack/react-query-devtools": "^5.37.1",
+    "@testing-library/jest-dom": "5.16.4",
+    "@testing-library/react": "13.3.0",
+    "@testing-library/user-event": "13.5.0",
+    "@types/jest": "27.5.2",
+    "@types/node": "16.11.41",
+    "@types/react": "18.0.14",
+    "@types/react-dom": "18.0.5",
+    "axios": "0.27.2",
+    "axios-mock-adapter": "1.20.0",
+    "prettier": "2.3.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.34.1",
+    "typescript": "^5.4.5"
+  },
+  "overrides": {
+    "react-scripts": {
+      "typescript": ">3.2.1"
     }
+  }
 }

@@ -1,0 +1,34 @@
+.comments {
+
+}
+
+.comment__heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 0.2px solid rgba(118, 118, 118, 0.2);
+}
+
+.comments__title {
+  font-weight: 700;
+}
+
+.comments__likes {
+  width: 100%;
+  max-width: 69px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.comments__like-button:hover {
+  cursor: pointer;
+}
+
+.comments__likes-quantity {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 150%;
+}
