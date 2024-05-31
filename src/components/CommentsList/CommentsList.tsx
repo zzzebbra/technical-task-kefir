@@ -6,7 +6,8 @@ import LoadMoreButton from '../LoadMoreButton/LoadMoreButton';
 import Loader from '../Loader/Loader';
 import Error from '../Error/Error';
 import { getCommentsWithAuthors } from './helpers';
-import { useAuthorsQuery, useCommentsQuery } from 'src/helpers/hooks';
+import { useAuthorsQuery } from 'src/hooks/useAuthorsQuery';
+import { useCommentsQuery } from 'src/hooks/useCommentsQuery';
 
 const CommentsList = (): JSX.Element => {
   const { data: comments, isLoading: isCommentsLoading, fetchNextPage, hasNextPage, isError, isFetchingNextPage, error } = useCommentsQuery();

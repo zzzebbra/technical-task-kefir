@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import likesLightBorder from '../../assets/icons/heart-icon-border-light.svg'
 import CommentsList from '../CommentsList/CommentsList'
-import { useCommentsQuery } from 'src/helpers/hooks';
+import { useCommentsQuery } from 'src/hooks/useCommentsQuery';
+import { pluralizeComments } from './helpers';
 
 const Comments = (): JSX.Element => {
   const [likesQuantity, setLikesQuantity] = useState(0);
@@ -20,7 +21,7 @@ const Comments = (): JSX.Element => {
     <>
       <section className='comments'>
         <div className="comment__heading">
-          <span className="comments__title">{commentsQuantity} комментариев</span>
+          <span className="comments__title">{pluralizeComments(commentsQuantity)}</span>
           <div className="comments__likes">
             <img src={likesLightBorder} alt="Heart shape icon with light border" />
             <span className="comments__likes-quantity">{likesQuantity}</span>

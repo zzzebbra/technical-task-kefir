@@ -1,15 +1,8 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import type { DefinedInitialDataOptions, InfiniteData, QueryKey, UseInfiniteQueryResult } from '@tanstack/react-query'
-import { type TAuthor } from 'src/types/authors'
-import { errorAuthorsWrapper, errorCommentsWrapper } from './api'
-import type { TData } from 'src/types/comment'
+import { useInfiniteQuery } from '@tanstack/react-query';
+import type { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query'
 
-export const useAuthorsQuery = () => {
-  return useQuery<TAuthor[]>({
-    queryFn: async () => await errorAuthorsWrapper(),
-    queryKey: ['authors']
-  })
-}
+import { errorCommentsWrapper } from '../helpers/api'
+import type { TData } from 'src/types/comment'
 
 export const useCommentsQuery = (): UseInfiniteQueryResult<InfiniteData<TData | null, unknown>, Error> => {
   return useInfiniteQuery({
