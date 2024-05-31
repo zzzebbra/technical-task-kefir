@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import likesLightBorder from '../../assets/icons/heart-icon-border-light.svg'
 import CommentsList from '../CommentsList/CommentsList'
+import { useCommentsQuery } from 'src/helpers/hooks';
 
 const Comments = (): JSX.Element => {
-  const likesQuantity = 0;
-  const commentsQuantity = 0;
+  const [likesQuantity, setLikesQuantity] = useState(0);
+  const [commentsQuantity, setCommentsQuantity] = useState(0);
+
+  const { data: comments } = useCommentsQuery();
+  const allLikesQuantity = comments?.pages.flatMap(page => page?.data.map(comment => comment.likes)).reduce((acc, likes) => acc! + likes!, 0) ?? 0;
+  const allCommentsQuantity = comments?.pages.reduce((acc, page) => acc + page!.data.length, 0) ?? 0;
+
+  useEffect(() => {
+    if (allLikesQuantity) { setLikesQuantity(allLikesQuantity) }
+    if (allCommentsQuantity) { setCommentsQuantity(allCommentsQuantity) }
+  }, [allLikesQuantity, allCommentsQuantity])
 
   return (
     <>

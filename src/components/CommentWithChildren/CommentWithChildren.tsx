@@ -4,12 +4,12 @@ import BaseComment from '../BaseComment/BaseComment'
 
 type TProps = {
   isLiked: boolean
-  likes: number
-  text: string
-  id: number
+  likes?: number
+  text?: string
+  id?: number
   authorName?: string
   avatar?: string
-  created: string
+  created?: string
   childrenComments?: TComment[]
 }
 
@@ -33,7 +33,7 @@ const CommentWithChildren = ({ isLiked, likes, text, avatar, authorName, created
             return <CommentWithChildren
               key={comment.id}
               avatar={comment.avatar}
-              isLiked={false}
+              isLiked={isLiked}
               likes={comment.likes}
               text={comment.text}
               authorName={comment.authorName}
