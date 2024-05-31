@@ -4,7 +4,6 @@
   background: url('/src/assets/backgrounds/comments-pc.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  padding-bottom: 64px;
 }
 
 @media screen and (max-width: 320px) {

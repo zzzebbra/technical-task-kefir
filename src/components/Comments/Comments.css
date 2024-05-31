@@ -1,5 +1,7 @@
 .comments {
-
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 }
 
 .comment__heading {

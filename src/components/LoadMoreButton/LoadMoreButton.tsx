@@ -1,8 +1,13 @@
 import React from 'react'
 
-const LoadMoreButton = (): JSX.Element => {
+type TProps = {
+  fetchNextPage: () => unknown
+  isDisabled: boolean
+}
+
+const LoadMoreButton = ({ fetchNextPage, isDisabled }: TProps): JSX.Element => {
   return (
-    <button className='load-more'>Загрузить еще</button>
+    <button className='load-more' onClick={fetchNextPage} disabled={isDisabled} >Загрузить еще</button>
   )
 }
 

@@ -7,6 +7,8 @@
 @import '/src/components/CommentsList/CommentsList.css';
 @import '/src/components/BaseComment/BaseComment.css';
 @import '/src/components/CommentWithChildren/CommentWithChildren.css';
+@import '/src/components/Loader/Loader.css';
+@import '/src/components/Error/Error.css';
 
 body {
   margin: 0;
@@ -23,5 +25,5 @@ body {
 button {
   background: none;
   border: none;
-  padding: none;
+  padding: 0;
 }

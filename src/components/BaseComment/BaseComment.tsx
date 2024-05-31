@@ -1,6 +1,6 @@
-import React from 'react'
-import likesRedBorder from '../../assets/icons/heart-icon-border-red.svg'
-import likesFilledRed from '../../assets/icons/heart-icon-filled-red.svg'
+import React, { useState } from 'react'
+import likesRedBorder from '../../assets/icons/heart-icon-border-red.png'
+import likesFilledRed from '../../assets/icons/heart-icon-filled-red.png'
 
 type TProps = {
   isLiked: boolean
@@ -13,6 +13,12 @@ type TProps = {
 }
 
 const BaseComment = ({ isLiked, likes, text, avatar, authorName, created, id }: TProps): JSX.Element => {
+  const [isCommentLiked, setIsCommentLiked] = useState(isLiked);
+
+  const toggleLike = (): void => {
+    setIsCommentLiked(!isCommentLiked);
+  }
+
   return (
     <div className='comment'>
       <div className="comment__info">
@@ -24,7 +30,8 @@ const BaseComment = ({ isLiked, likes, text, avatar, authorName, created, id }: 
           </div>
         </div>
         <div className="comments__likes">
-          <button className='comments__like-button'><img src={isLiked ? likesFilledRed : likesRedBorder} alt="Heart shape icon with light border" /></button>
+          <button className='comments__like-button' type='button' onClick={toggleLike}>
+            <img src={isCommentLiked ? likesFilledRed : likesRedBorder} alt="Heart shape icon with light border" /></button>
           <span className="comments__likes-quantity">{likes}</span>
         </div>
       </div>

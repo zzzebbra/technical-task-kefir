@@ -1,71 +1,77 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import { useQuery } from '@tanstack/react-query'
-import type { TAuthor } from 'src/types/authors'
-import type { TComment, TCommentWithChildren } from 'src/types/comment'
-import CommentWithChildren from '../CommentWithChildren/CommentWithChildren'
+import React from 'react';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import type { TAuthor } from 'src/types/authors';
+import type { TComment, TCommentWithChildren } from 'src/types/comment';
+import CommentWithChildren from '../CommentWithChildren/CommentWithChildren';
+import getAuthorsRequest from 'src/api/authors/getAuthorsRequest';
+import LoadMoreButton from '../LoadMoreButton/LoadMoreButton';
+import { errorWrapper } from 'src/helpers/api';
+import Loader from '../Loader/Loader';
+import Error from '../Error/Error';
+import { getCommentsWithAuthors } from './helpers';
 
 const CommentsList = (): JSX.Element => {
-  const [page, setPage] = useState(1)
-
-  const getComments = axios.get('api/comments', { params: { page } }).then(function (response) {
-    return (response.data)
+  const { data: comments, isLoading: isCommentsLoading, fetchNextPage, hasNextPage, isError, isFetchingNextPage, error } = useInfiniteQuery({
+    queryFn: async ({ pageParam }) => await errorWrapper(pageParam),
+    queryKey: ['comments'],
+    initialPageParam: 1,
+    retry: 0,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      const totalPages = lastPage?.pagination.total_pages;
+      if (totalPages === lastPageParam) {
+        return;
+      }
+      return lastPageParam + 1
+    }
   })
 
-  const { data: comments, isLoading: isCommentsLoading } = useQuery({
-    queryFn: async () => await getComments,
-    queryKey: ['comments']
-  })
-
-  const getAuthors: Promise<TAuthor[]> = axios.get('api/authors').then(function (response) {
-    return (response.data)
-  })
-
-  const { data: authors, isLoading: isAuthorsLoading } = useQuery({
-    queryFn: async () => await getAuthors,
+  const { data: authors, isLoading: isAuthorsLoading } = useQuery<TAuthor[]>({
+    queryFn: async () => await getAuthorsRequest(),
     queryKey: ['authors']
   })
 
-  const authorMap = new Map(authors?.map(author => [author.id, author]));
+  const authorMap = new Map<number, TAuthor>(authors?.map(author => [author.id, author]));
 
   const commentsByParent = new Map();
 
-  comments?.data.forEach((comment: TComment) => {
-    const parentId = comment.parent;
-    if (!commentsByParent.has(parentId)) {
-      commentsByParent.set(parentId, []);
-    }
-    commentsByParent.get(parentId).push(comment);
+  comments?.pages.forEach((page) => {
+    page?.data.forEach((comment: TComment) => {
+      const parentId = comment.parent;
+      if (!commentsByParent.has(parentId)) {
+        commentsByParent.set(parentId, []);
+      }
+      commentsByParent.get(parentId).push(comment);
+    })
   });
 
-  const commentsWithAuthors = comments?.data.map((comment: TCommentWithChildren) => {
-    const author = authorMap.get(comment.author);
-    comment.authorName = author?.name;
-    comment.avatar = author?.avatar;
-    comment.childrenComments = commentsByParent.get(comment.id) || [];
-    return comment.parent === null ? comment : null;
-  }).filter(Boolean);
+  const commentsWithAuthors = getCommentsWithAuthors(comments, authorMap, commentsByParent)
 
   return (
-    <div className='comments-list'>
-      {
-        commentsWithAuthors?.map((comment: TCommentWithChildren) => {
-          return (
-            <CommentWithChildren
-              key={comment.id}
-              avatar={comment.avatar}
-              isLiked={false}
-              likes={comment.likes}
-              text={comment.text}
-              authorName={comment.authorName}
-              created={comment.created}
-              id={comment.id}
-              childrenComments={comment.childrenComments}
-            />
-          )
-        })
-      }
-    </div>
+    <>
+      <div className='comments-list'>
+        {isCommentsLoading && isAuthorsLoading && <Loader />}
+        {
+          commentsWithAuthors?.map((comment: TComment) => {
+            return (
+              <CommentWithChildren
+                key={comment.id}
+                avatar={comment.avatar}
+                isLiked={false}
+                likes={comment.likes}
+                text={comment.text}
+                authorName={comment.authorName}
+                created={comment.created}
+                id={comment.id}
+                childrenComments={comment.childrenComments}
+              />
+            )
+          })
+        }
+      </div>
+      {isFetchingNextPage && <Loader />}
+      {isError && !isFetchingNextPage && <Error errorText={error.message} />}
+      {hasNextPage && <LoadMoreButton isDisabled={isFetchingNextPage} fetchNextPage={fetchNextPage} />}
+    </>
   )
 }
 

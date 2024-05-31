@@ -6,7 +6,6 @@ const Main = (): JSX.Element => {
   return (
     <div className='main'>
       <Comments />
-      <LoadMoreButton />
     </div>
   )
 }

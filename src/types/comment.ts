@@ -8,8 +8,18 @@ export type TComment = {
   avatar?: string
   created: string
   parent: number | null
+  childrenComments?: TComment[]
 }
 
 export type TCommentWithChildren = TComment & {
   childrenComments: TComment[]
+}
+
+export type TData = {
+  data: TComment[]
+  pagination: {
+    page: number
+    size: number
+    total_pages: number
+  }
 }

@@ -14,7 +14,7 @@ type TProps = {
 }
 
 const CommentWithChildren = ({ isLiked, likes, text, avatar, authorName, created, id, childrenComments }: TProps): JSX.Element => {
-  const isChildrenExist = !!childrenComments && childrenComments?.length > 0
+  const isChildrenExist = !!childrenComments && childrenComments?.length > 0;
   return (
     <>
       <BaseComment

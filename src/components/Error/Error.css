@@ -1,0 +1,15 @@
+.error {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 441px;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.error__text {
+  font-weight: 700;
+  line-height: 22px;
+}
