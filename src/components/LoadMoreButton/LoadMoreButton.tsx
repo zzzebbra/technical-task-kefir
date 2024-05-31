@@ -7,7 +7,7 @@ type TProps = {
 
 const LoadMoreButton = ({ fetchNextPage, isDisabled }: TProps): JSX.Element => {
   return (
-    <button className='load-more' onClick={fetchNextPage} disabled={isDisabled} >Загрузить еще</button>
+    <button className='load-more' type='button' onClick={fetchNextPage} disabled={isDisabled} >Загрузить еще</button>
   )
 }
 
