@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type Dispatch, type SetStateAction } from 'react';
 import type { TAuthor } from 'src/types/authors';
 import type { TComment } from 'src/types/comment';
 import CommentWithChildren from '../CommentWithChildren/CommentWithChildren';
@@ -9,7 +9,12 @@ import { getCommentsWithAuthors } from './helpers';
 import { useAuthorsQuery } from 'src/hooks/useAuthorsQuery';
 import { useCommentsQuery } from 'src/hooks/useCommentsQuery';
 
-const CommentsList = (): JSX.Element => {
+type TProps = {
+  likesQuantity: number
+  setLikesQuantity: Dispatch<SetStateAction<number>>
+}
+
+const CommentsList = ({ likesQuantity, setLikesQuantity }: TProps): JSX.Element => {
   const { data: comments, isLoading: isCommentsLoading, fetchNextPage, hasNextPage, isError, isFetchingNextPage, error } = useCommentsQuery();
 
   const { data: authors, isLoading: isAuthorsLoading } = useAuthorsQuery();
@@ -47,6 +52,8 @@ const CommentsList = (): JSX.Element => {
                 created={comment?.created}
                 id={comment?.id}
                 childrenComments={comment?.childrenComments}
+                likesQuantity={likesQuantity}
+                setLikesQuantity={setLikesQuantity}
               />
             )
           })

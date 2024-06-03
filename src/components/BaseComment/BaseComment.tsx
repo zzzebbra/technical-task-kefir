@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { type Dispatch, type SetStateAction, useState } from 'react'
 import likesRedBorder from '../../assets/icons/heart-icon-border-red.png'
 import likesFilledRed from '../../assets/icons/heart-icon-filled-red.png'
 import { formateDateToFriendlyFormat } from 'src/helpers/date'
@@ -11,9 +11,11 @@ type TProps = {
   authorName?: string
   avatar?: string
   created?: string
+  allLikesQuantity: number
+  setAllLikesQuantity: Dispatch<SetStateAction<number>>
 }
 
-const BaseComment = ({ isLiked, likes, text, avatar, authorName, created, id }: TProps): JSX.Element => {
+const BaseComment = ({ isLiked, likes, text, avatar, authorName, created, id, allLikesQuantity, setAllLikesQuantity }: TProps): JSX.Element => {
   const [isCommentLiked, setIsCommentLiked] = useState(isLiked);
   const [likesQuantity, setLikesQuantity] = useState(likes);
   const createdText = formateDateToFriendlyFormat(created!);
@@ -21,8 +23,12 @@ const BaseComment = ({ isLiked, likes, text, avatar, authorName, created, id }: 
   const toggleLike = (): void => {
     setIsCommentLiked(!isCommentLiked);
     if (!isCommentLiked) {
-      likesQuantity !== undefined && setLikesQuantity(likesQuantity + 1)
-    } else { likesQuantity !== undefined && setLikesQuantity(likesQuantity - 1) }
+      likesQuantity !== undefined && setLikesQuantity(likesQuantity + 1);
+      setAllLikesQuantity(allLikesQuantity + 1);
+    } else {
+      likesQuantity !== undefined && setLikesQuantity(likesQuantity - 1);
+      setAllLikesQuantity(allLikesQuantity - 1);
+    }
   }
 
   return (

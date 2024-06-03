@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { type Dispatch, type SetStateAction } from 'react'
 import type { TComment } from 'src/types/comment'
 import BaseComment from '../BaseComment/BaseComment'
 
@@ -13,7 +13,12 @@ type TProps = {
   childrenComments?: TComment[]
 }
 
-const CommentWithChildren = ({ isLiked, likes, text, avatar, authorName, created, id, childrenComments }: TProps): JSX.Element => {
+type TLikesProps = {
+  likesQuantity: number
+  setLikesQuantity: Dispatch<SetStateAction<number>>
+}
+
+const CommentWithChildren = ({ isLiked, likes, text, avatar, authorName, created, id, childrenComments, setLikesQuantity, likesQuantity }: TProps & TLikesProps): JSX.Element => {
   const isChildrenExist = !!childrenComments && childrenComments?.length > 0;
   return (
     <>
@@ -26,6 +31,8 @@ const CommentWithChildren = ({ isLiked, likes, text, avatar, authorName, created
         authorName={authorName}
         created={created}
         id={id}
+        setAllLikesQuantity={setLikesQuantity}
+        allLikesQuantity={likesQuantity}
       />
       { isChildrenExist && <div className="children-comments">
         {
@@ -40,6 +47,8 @@ const CommentWithChildren = ({ isLiked, likes, text, avatar, authorName, created
               created={comment.created}
               id={comment.id}
               childrenComments={comment.childrenComments}
+              likesQuantity={likesQuantity}
+              setLikesQuantity={setLikesQuantity}
             />
           })
         }

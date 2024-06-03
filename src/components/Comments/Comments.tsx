@@ -27,7 +27,7 @@ const Comments = (): JSX.Element => {
             <span className="comments__likes-quantity">{likesQuantity}</span>
           </div>
         </div>
-        <CommentsList/>
+        <CommentsList likesQuantity={likesQuantity} setLikesQuantity={setLikesQuantity} />
       </section>
     </>
   )
