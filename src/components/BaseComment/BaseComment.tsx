@@ -24,6 +24,7 @@ const BaseComment = ({ isLiked, likes, text, avatar, authorName, created, id, al
     setIsCommentLiked(!isCommentLiked);
     if (!isCommentLiked) {
       likesQuantity !== undefined && setLikesQuantity(likesQuantity + 1);
+      // т.к. не предусмотрено апи для хранения количества лайков на бэке, просто делаем всё в локальном стейте приложения
       setAllLikesQuantity(allLikesQuantity + 1);
     } else {
       likesQuantity !== undefined && setLikesQuantity(likesQuantity - 1);
