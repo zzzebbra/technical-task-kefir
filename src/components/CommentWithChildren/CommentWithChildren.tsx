@@ -3,22 +3,33 @@ import type { TComment } from 'src/types/comment'
 import BaseComment from '../BaseComment/BaseComment'
 
 type TProps = {
-  isLiked: boolean
-  likes?: number
-  text?: string
-  id?: number
-  authorName?: string
-  avatar?: string
-  created?: string
-  childrenComments?: TComment[]
+  isLiked: boolean;
+  likes?: number;
+  text?: string;
+  id?: number;
+  authorName?: string;
+  avatar?: string;
+  created?: string;
+  childrenComments?: TComment[];
 }
 
 type TLikesProps = {
-  likesQuantity: number
-  setLikesQuantity: Dispatch<SetStateAction<number>>
+  likesQuantity: number;
+  setLikesQuantity: Dispatch<SetStateAction<number>>;
 }
 
-const CommentWithChildren = ({ isLiked, likes, text, avatar, authorName, created, id, childrenComments, setLikesQuantity, likesQuantity }: TProps & TLikesProps): JSX.Element => {
+const CommentWithChildren = ({
+  isLiked,
+  likes,
+  text,
+  avatar,
+  authorName,
+  created,
+  id,
+  childrenComments,
+  setLikesQuantity,
+  likesQuantity,
+}: TProps & TLikesProps): JSX.Element => {
   const isChildrenExist = !!childrenComments && childrenComments?.length > 0;
   return (
     <>
@@ -34,10 +45,11 @@ const CommentWithChildren = ({ isLiked, likes, text, avatar, authorName, created
         setAllLikesQuantity={setLikesQuantity}
         allLikesQuantity={likesQuantity}
       />
-      { isChildrenExist && <div className="children-comments">
+      { isChildrenExist && (
+      <div className="children-comments">
         {
-          childrenComments?.map((comment: TProps) => {
-            return <CommentWithChildren
+          childrenComments?.map((comment: TProps) => (
+            <CommentWithChildren
               key={comment.id}
               avatar={comment.avatar}
               isLiked={isLiked}
@@ -50,10 +62,10 @@ const CommentWithChildren = ({ isLiked, likes, text, avatar, authorName, created
               likesQuantity={likesQuantity}
               setLikesQuantity={setLikesQuantity}
             />
-          })
+          ))
         }
       </div>
-      }
+      )}
     </>
   )
 }
