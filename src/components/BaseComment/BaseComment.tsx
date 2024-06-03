@@ -1,33 +1,32 @@
 import React, { type Dispatch, type SetStateAction, useState } from 'react'
+import formateDateToFriendlyFormat from "../../helpers/date";
 import likesRedBorder from '../../assets/icons/heart-icon-border-red.png'
 import likesFilledRed from '../../assets/icons/heart-icon-filled-red.png'
-import { formateDateToFriendlyFormat } from 'src/helpers/date'
 
 type TProps = {
   isLiked: boolean
-  likes?: number
-  text?: string
-  id?: number
+  likes: number
+  text: string
   authorName?: string
   avatar?: string
-  created?: string
+  created: string
   allLikesQuantity: number
   setAllLikesQuantity: Dispatch<SetStateAction<number>>
 }
 
-const BaseComment = ({ isLiked, likes, text, avatar, authorName, created, id, allLikesQuantity, setAllLikesQuantity }: TProps): JSX.Element => {
+const BaseComment = ({ isLiked, likes, text, avatar, authorName, created, allLikesQuantity, setAllLikesQuantity }: TProps): JSX.Element => {
   const [isCommentLiked, setIsCommentLiked] = useState(isLiked);
   const [likesQuantity, setLikesQuantity] = useState(likes);
-  const createdText = formateDateToFriendlyFormat(created!);
+  const createdText = formateDateToFriendlyFormat(created);
 
   const toggleLike = (): void => {
     setIsCommentLiked(!isCommentLiked);
+    // т.к. не предусмотрено апи для сохранения количества лайков на бэке, просто делаем всё в локальном стейте приложения
     if (!isCommentLiked) {
-      likesQuantity !== undefined && setLikesQuantity(likesQuantity + 1);
-      // т.к. не предусмотрено апи для хранения количества лайков на бэке, просто делаем всё в локальном стейте приложения
+      setLikesQuantity(likesQuantity + 1);
       setAllLikesQuantity(allLikesQuantity + 1);
     } else {
-      likesQuantity !== undefined && setLikesQuantity(likesQuantity - 1);
+      setLikesQuantity(likesQuantity - 1);
       setAllLikesQuantity(allLikesQuantity - 1);
     }
   }
@@ -36,7 +35,7 @@ const BaseComment = ({ isLiked, likes, text, avatar, authorName, created, id, al
     <div className='comment'>
       <div className="comment__info">
         <div className="comment__avatar-wrapper">
-          <img className='comment__avatar' src={avatar} alt="author picture" />
+          <img className='comment__avatar' src={avatar} alt="author" />
           <div className="comment__name-date-wrapper">
             <span className="comment__author-name">{authorName}</span>
             <span className="comment__date">{createdText}</span>

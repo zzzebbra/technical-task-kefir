@@ -1,15 +1,15 @@
-import React, { type Dispatch, type SetStateAction } from 'react'
-import type { TComment } from 'src/types/comment'
-import BaseComment from '../BaseComment/BaseComment'
+import React, { type Dispatch, type SetStateAction } from 'react';
+import type { TComment } from 'src/types/comment';
+import BaseComment from '../BaseComment/BaseComment';
 
 type TProps = {
   isLiked: boolean;
-  likes?: number;
-  text?: string;
-  id?: number;
+  likes: number;
+  text: string;
+  id: number;
   authorName?: string;
   avatar?: string;
-  created?: string;
+  created: string;
   childrenComments?: TComment[];
 }
 
@@ -41,30 +41,29 @@ const CommentWithChildren = ({
         text={text}
         authorName={authorName}
         created={created}
-        id={id}
         setAllLikesQuantity={setLikesQuantity}
         allLikesQuantity={likesQuantity}
       />
-      { isChildrenExist && (
-      <div className="children-comments">
-        {
-          childrenComments?.map((comment: TProps) => (
-            <CommentWithChildren
-              key={comment.id}
-              avatar={comment.avatar}
-              isLiked={isLiked}
-              likes={comment.likes}
-              text={comment.text}
-              authorName={comment.authorName}
-              created={comment.created}
-              id={comment.id}
-              childrenComments={comment.childrenComments}
-              likesQuantity={likesQuantity}
-              setLikesQuantity={setLikesQuantity}
-            />
-          ))
-        }
-      </div>
+      {isChildrenExist && (
+        <div className="children-comments">
+          {
+            childrenComments?.map((comment: TProps) => (
+              <CommentWithChildren
+                key={comment.id}
+                avatar={comment.avatar}
+                isLiked={isLiked}
+                likes={comment.likes}
+                text={comment.text}
+                authorName={comment.authorName}
+                created={comment.created}
+                id={comment.id}
+                childrenComments={comment.childrenComments}
+                likesQuantity={likesQuantity}
+                setLikesQuantity={setLikesQuantity}
+              />
+            ))
+          }
+        </div>
       )}
     </>
   )

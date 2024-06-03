@@ -1,5 +1,5 @@
 export type TAuthor = {
-  id: number
-  avatar: string
-  name: string
-}
+  id: number;
+  avatar: string;
+  name: string;
+};

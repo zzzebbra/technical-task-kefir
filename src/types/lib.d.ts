@@ -1,1 +1,1 @@
-declare module 'pluralize-ru'
+declare module "pluralize-ru";

@@ -1,13 +1,18 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import type { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query'
+import { useInfiniteQuery } from "@tanstack/react-query";
+import type {
+  InfiniteData,
+  UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 
-import { errorCommentsWrapper } from '../helpers/api'
-import type { TData } from 'src/types/comment'
+import { errorCommentsWrapper } from "../helpers/api";
+import type { TData } from "../types/comment";
 
-export const useCommentsQuery = (): UseInfiniteQueryResult<InfiniteData<TData | null, unknown>, Error> => {
-  return useInfiniteQuery({
-    queryFn: async ({ pageParam }) => await errorCommentsWrapper(pageParam),
-    queryKey: ['comments'],
+const useCommentsQuery = (): UseInfiniteQueryResult<
+  InfiniteData<TData | null, unknown>,
+  Error
+> => useInfiniteQuery({
+    queryFn: async ({ pageParam }) => errorCommentsWrapper(pageParam),
+    queryKey: ["comments"],
     initialPageParam: 1,
     retry: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
@@ -15,7 +20,9 @@ export const useCommentsQuery = (): UseInfiniteQueryResult<InfiniteData<TData | 
       if (totalPages === lastPageParam) {
         return;
       }
-      return lastPageParam + 1
-    }
-  })
-}
+      // eslint-disable-next-line consistent-return
+      return lastPageParam + 1;
+    },
+  });
+
+  export default useCommentsQuery;

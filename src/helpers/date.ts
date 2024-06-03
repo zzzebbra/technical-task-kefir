@@ -1,8 +1,8 @@
-import { parseISO, format, isToday, formatDistanceToNowStrict } from 'date-fns';
-import { ru } from 'date-fns/locale'
-import { DATE_FORMAT } from 'src/constants/date';
+import { parseISO, format, isToday, formatDistanceToNowStrict } from "date-fns";
+import { ru } from "date-fns/locale";
+import DATE_FORMAT from "../constants/date";
 
-export const formateDateToFriendlyFormat = (date: string): string => {
+const formateDateToFriendlyFormat = (date: string): string => {
   const parsedDate = parseISO(date);
 
   if (isToday(parsedDate)) {
@@ -10,4 +10,6 @@ export const formateDateToFriendlyFormat = (date: string): string => {
   }
 
   return format(parsedDate, DATE_FORMAT.FRIENDLY_FORMAT);
-}
+};
+
+export default formateDateToFriendlyFormat;
