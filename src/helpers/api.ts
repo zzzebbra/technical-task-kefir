@@ -20,7 +20,7 @@ export const errorAuthorsWrapper = async (): Promise<TAuthor[] | null> => {
   try {
     res = await getAuthorsRequest();
   } catch (err) {
-    throw new Error("There was some error during loading, please, try again");
+    throw new Error("There was some error during authors list loading, please, reload this page");
   }
   return res;
 };

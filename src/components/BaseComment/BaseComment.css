@@ -15,7 +15,6 @@
   flex-direction: row;
   gap: 20px;
   align-items: center;
-  max-width: 50%;
 }
 
 .comment__avatar {
@@ -32,6 +31,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-bottom: 14.5px;
 }
 
 .comment__author-name {
@@ -44,5 +44,21 @@
 }
 
 .comment__text {
-  justify-self: flex-end;
+  padding-left: 88px;
+  overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 425px) {
+  .comment__text {
+    padding-left: 60px;
+  }
+
+  .comment__avatar {
+    max-width: 40px;
+  }
+
+  .comment__name-date-wrapper {
+    margin-bottom: 9.5px;
+    gap: 0;
+  }
 }

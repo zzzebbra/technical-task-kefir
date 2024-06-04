@@ -13,7 +13,7 @@
   font-style: normal;
   line-height: 22px;
   padding: 8px 32px;
-  margin: 0 auto;
+  margin: 28px auto 0;
 }
 
 .load-more:hover {
@@ -24,4 +24,10 @@
   cursor: not-allowed;
   background: #38393d;
   color: #4d4b4b;
+}
+
+@media screen and (max-width: 425px) {
+  .load-more {
+    margin: 8px auto 0;
+  }
 }

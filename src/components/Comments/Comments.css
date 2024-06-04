@@ -1,7 +1,7 @@
 .comments {
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 32px;
 }
 
 .comment__heading {
@@ -23,6 +23,12 @@
   flex-direction: row;
   gap: 8px;
   align-items: center;
+  justify-content: end;
+}
+
+.comments__like-icon {
+  width: 22px;
+  height: 22px;
 }
 
 .comments__like-button:hover {
@@ -33,4 +39,19 @@
   font-size: 15px;
   font-weight: 700;
   line-height: 150%;
+}
+
+@media screen and (max-width: 425px) {
+  .comments__like-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .comments {
+    gap: 24px;
+  }
+
+  .comments__likes-quantity {
+    font-size: 14px;
+  }
 }

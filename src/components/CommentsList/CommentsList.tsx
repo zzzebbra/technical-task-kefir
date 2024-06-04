@@ -1,13 +1,13 @@
 import React, { type Dispatch, type SetStateAction } from 'react';
 import type { TAuthor } from 'src/types/authors';
 import type { TComment } from 'src/types/comment';
-import useAuthorsQuery  from '../../hooks/useAuthorsQuery';
+import useAuthorsQuery from '../../hooks/useAuthorsQuery';
 import useCommentsQuery from '../../hooks/useCommentsQuery';
 import CommentWithChildren from '../CommentWithChildren/CommentWithChildren';
 import LoadMoreButton from '../LoadMoreButton/LoadMoreButton';
 import Loader from '../Loader/Loader';
 import Error from '../Error/Error';
-import getCommentsWithAuthors  from './helpers';
+import getCommentsWithAuthors from './helpers';
 
 type TProps = {
   likesQuantity: number
@@ -15,7 +15,7 @@ type TProps = {
 }
 
 const CommentsList = ({ likesQuantity, setLikesQuantity }: TProps): JSX.Element => {
-  const { data: comments, isLoading: isCommentsLoading, fetchNextPage, hasNextPage, isError, isFetchingNextPage, error } = useCommentsQuery();
+  const { data: comments, isLoading: isCommentsLoading, fetchNextPage, hasNextPage, isError: isCommentsError, isFetchingNextPage, error: commentsError } = useCommentsQuery();
   const { data: authors, isLoading: isAuthorsLoading } = useAuthorsQuery();
   const authorMap = new Map<number, TAuthor>(authors?.map((author: TAuthor) => [author.id, author]));
   const commentsByParent = new Map<number | null, TComment[]>();
@@ -39,10 +39,10 @@ const CommentsList = ({ likesQuantity, setLikesQuantity }: TProps): JSX.Element 
         {isDataFetching && <Loader />}
         {
           commentsWithAuthors?.map((comment) => {
-            if(!comment){
-               return null
+            if (!comment) {
+              return null
             }
-            return(
+            return (
               <CommentWithChildren
                 key={comment.id}
                 avatar={comment.avatar}
@@ -56,12 +56,13 @@ const CommentsList = ({ likesQuantity, setLikesQuantity }: TProps): JSX.Element 
                 likesQuantity={likesQuantity}
                 setLikesQuantity={setLikesQuantity}
               />
-            )})
+            )
+          })
         }
       </div>
       {isFetchingNextPage && <Loader />}
       {/* дополняем условие, т.к. ошибка не сбрасывается сразу же после отправки нового запроса */}
-      {isError && !isFetchingNextPage && <Error errorText={error.message} />}
+      {isCommentsError && !isFetchingNextPage && <Error errorText={commentsError.message} />}
       {hasNextPage && <LoadMoreButton isDisabled={isFetchingNextPage} fetchNextPage={fetchNextPage} />}
     </>
   )

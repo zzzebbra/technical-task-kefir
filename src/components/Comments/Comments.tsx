@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
+import useAuthorsQuery from "../../hooks/useAuthorsQuery";
 import useCommentsQuery from "../../hooks/useCommentsQuery";
-import likesLightBorder from "../../assets/icons/heart-icon-border-light.svg";
+import likesLightBorder from "../../assets/icons/heart-icon-border-light.png";
 import CommentsList from "../CommentsList/CommentsList";
 import pluralizeComments from "./helpers";
+import Error from "../Error/Error";
 
 const Comments = (): JSX.Element => {
   const [likesQuantity, setLikesQuantity] = useState(0);
   const [commentsQuantity, setCommentsQuantity] = useState(0);
 
   const { data: comments } = useCommentsQuery();
+  const { isError: isAuthorsError, error: authorsError } = useAuthorsQuery();
+
   const allLikesQuantity =
     comments?.pages
       .flatMap((page) => page?.data.map((comment) => comment.likes))
@@ -28,22 +32,25 @@ const Comments = (): JSX.Element => {
 
   return (
     <section className="comments">
-      <div className="comment__heading">
-        <span className="comments__title">
-          {commentsText}
-        </span>
-        <div className="comments__likes">
-          <img
-            src={likesLightBorder}
-            alt="Heart shape icon with light border"
-          />
-          <span className="comments__likes-quantity">{likesQuantity}</span>
-        </div>
-      </div>
-      <CommentsList
-        likesQuantity={likesQuantity}
-        setLikesQuantity={setLikesQuantity}
-      />
+      {isAuthorsError
+        ? <Error errorText={authorsError.message} />
+        : <>
+          <div className="comment__heading">
+            <span className="comments__title">
+              {commentsText}
+            </span>
+            <div className="comments__likes">
+              <img
+                className="comments__like-icon"
+                src={likesLightBorder}
+                alt="Heart shape icon with light border" />
+              <span className="comments__likes-quantity">{likesQuantity}</span>
+            </div>
+          </div><CommentsList
+            likesQuantity={likesQuantity}
+            setLikesQuantity={setLikesQuantity} /></>
+      }
+
     </section>
   );
 };

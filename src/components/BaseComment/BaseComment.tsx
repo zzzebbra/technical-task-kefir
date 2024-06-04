@@ -43,7 +43,8 @@ const BaseComment = ({ isLiked, likes, text, avatar, authorName, created, allLik
         </div>
         <div className="comments__likes">
           <button className='comments__like-button' type='button' onClick={toggleLike}>
-            <img src={isCommentLiked ? likesFilledRed : likesRedBorder} alt="Heart shape icon with light border" /></button>
+            <img className='comments__like-icon' src={isCommentLiked ? likesFilledRed : likesRedBorder} alt="Heart shape icon with light border" />
+          </button>
           <span className="comments__likes-quantity">{likesQuantity}</span>
         </div>
       </div>

@@ -1,9 +1,15 @@
 import React from 'react'
 import Main from './components/Main/Main'
+import useAuthorsQuery from './hooks/useAuthorsQuery';
+import useCommentsQuery from './hooks/useCommentsQuery';
 
-function App (): JSX.Element {
+const App = (): JSX.Element => {
+
+  const { isError: isAuthorsError, isLoading: isAuthorsLoading, } = useAuthorsQuery();
+  const { isLoading: isCommentsLoading, isError: isCommentsError } = useCommentsQuery();
+
   return (
-    <div className="app">
+    <div className={ isAuthorsError || isCommentsError || isAuthorsLoading || isCommentsLoading ? "app app_loading" : "app"}>
       <Main />
     </div>
   )

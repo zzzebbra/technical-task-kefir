@@ -3,7 +3,8 @@ import { errorAuthorsWrapper } from '../helpers/api'
 
 const useAuthorsQuery = () => useQuery({
     queryFn: async () => errorAuthorsWrapper(),
-    queryKey: ['authors']
+    queryKey: ['authors'],
+    retry: 0
   })
 
 export default useAuthorsQuery;
