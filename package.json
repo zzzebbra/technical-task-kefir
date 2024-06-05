@@ -1,4 +1,5 @@
 {
+  "homepage": "https://zzzebbra.github.io/technical-task-kefir/",
   "name": "technical_task",
   "version": "0.1.0",
   "private": true,
@@ -6,7 +7,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "prettier": "prettier --write '*/**/*.{ts,tsx,js,jsx,css,scss,json}'"
+    "prettier": "prettier --write '*/**/*.{ts,tsx,js,jsx,css,scss,json}'",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.37.1",
@@ -51,6 +54,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "gh-pages": "^6.1.1",
     "prettier": "2.3.2",
     "typescript": "^5.4.5"
   },
