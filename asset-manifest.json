@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/technical-task-kefir/static/css/main.199a7604.css",
+    "main.js": "/technical-task-kefir/static/js/main.acd87334.js",
+    "static/media/comments-pc.jpg": "/technical-task-kefir/static/media/comments-pc.bb8c5a4d682b33d316c3.jpg",
+    "static/media/bg-mob.jpg": "/technical-task-kefir/static/media/bg-mob.102d87470f401e817ff2.jpg",
+    "static/media/han-solo.jpg": "/technical-task-kefir/static/media/han-solo.84705bac66e252072c67.jpg",
+    "index.html": "/technical-task-kefir/index.html",
+    "static/media/error-size-big.svg": "/technical-task-kefir/static/media/error-size-big.36e726a545fecabe4fa947301134295f.svg",
+    "static/media/error-size-normal.svg": "/technical-task-kefir/static/media/error-size-normal.2597bba953613d935768821b45034587.svg",
+    "main.199a7604.css.map": "/technical-task-kefir/static/css/main.199a7604.css.map",
+    "main.acd87334.js.map": "/technical-task-kefir/static/js/main.acd87334.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.199a7604.css",
+    "static/js/main.acd87334.js"
+  ]
+}
