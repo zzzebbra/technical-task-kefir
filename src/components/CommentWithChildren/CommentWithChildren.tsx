@@ -42,9 +42,8 @@ const CommentWithChildren = ({
       setAllLikesQuantity={setLikesQuantity}
       allLikesQuantity={likesQuantity}
     />
-    <div className="children-comments">
-      {
-        childrenComments &&
+    {childrenComments &&
+      <div className="children-comments">
         <CommentWithChildren
           key={childrenComments.id}
           avatar={childrenComments.avatar}
@@ -58,8 +57,8 @@ const CommentWithChildren = ({
           likesQuantity={likesQuantity}
           setLikesQuantity={setLikesQuantity}
         />
-      }
-    </div>
+      </div>
+    }
   </>
 )
 

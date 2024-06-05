@@ -1,6 +1,5 @@
 import React, { type Dispatch, type SetStateAction } from 'react';
 import type { TAuthor } from 'src/types/authors';
-import type { TComment } from 'src/types/comment';
 import useAuthorsQuery from '../../hooks/useAuthorsQuery';
 import useCommentsQuery from '../../hooks/useCommentsQuery';
 import CommentWithChildren from '../CommentWithChildren/CommentWithChildren';
