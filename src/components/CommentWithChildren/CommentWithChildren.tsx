@@ -10,7 +10,7 @@ type TProps = {
   authorName?: string;
   avatar?: string;
   created: string;
-  childrenComments?: TComment[];
+  childrenComments?: TComment;
 }
 
 type TLikesProps = {
@@ -29,44 +29,38 @@ const CommentWithChildren = ({
   childrenComments,
   setLikesQuantity,
   likesQuantity,
-}: TProps & TLikesProps): JSX.Element => {
-  const isChildrenExist = !!childrenComments && childrenComments?.length > 0;
-  return (
-    <>
-      <BaseComment
-        key={id}
-        avatar={avatar}
-        isLiked={false}
-        likes={likes}
-        text={text}
-        authorName={authorName}
-        created={created}
-        setAllLikesQuantity={setLikesQuantity}
-        allLikesQuantity={likesQuantity}
-      />
-      {isChildrenExist && (
-        <div className="children-comments">
-          {
-            childrenComments?.map((comment: TProps) => (
-              <CommentWithChildren
-                key={comment.id}
-                avatar={comment.avatar}
-                isLiked={isLiked}
-                likes={comment.likes}
-                text={comment.text}
-                authorName={comment.authorName}
-                created={comment.created}
-                id={comment.id}
-                childrenComments={comment.childrenComments}
-                likesQuantity={likesQuantity}
-                setLikesQuantity={setLikesQuantity}
-              />
-            ))
-          }
-        </div>
-      )}
-    </>
-  )
-}
+}: TProps & TLikesProps): JSX.Element => (
+  <>
+    <BaseComment
+      key={id}
+      avatar={avatar}
+      isLiked={false}
+      likes={likes}
+      text={text}
+      authorName={authorName}
+      created={created}
+      setAllLikesQuantity={setLikesQuantity}
+      allLikesQuantity={likesQuantity}
+    />
+    <div className="children-comments">
+      {
+        childrenComments &&
+        <CommentWithChildren
+          key={childrenComments.id}
+          avatar={childrenComments.avatar}
+          isLiked={isLiked}
+          likes={childrenComments.likes}
+          text={childrenComments.text}
+          authorName={childrenComments.authorName}
+          created={childrenComments.created}
+          id={childrenComments.id}
+          childrenComments={childrenComments.childrenComments}
+          likesQuantity={likesQuantity}
+          setLikesQuantity={setLikesQuantity}
+        />
+      }
+    </div>
+  </>
+)
 
 export default CommentWithChildren

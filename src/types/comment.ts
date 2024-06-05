@@ -8,11 +8,11 @@ export type TComment = {
   avatar?: string;
   created: string;
   parent: number | null;
-  childrenComments?: TComment[];
+  childrenComments?: TComment;
 };
 
 export type TCommentWithChildren = TComment & {
-  childrenComments: TComment[];
+  childrenComments: TComment;
 };
 
 export type TData = {

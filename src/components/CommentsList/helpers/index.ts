@@ -1,11 +1,10 @@
 import type { InfiniteData } from "@tanstack/react-query";
 import type { TAuthor } from "src/types/authors";
-import type { TComment, TData } from "src/types/comment";
+import type { TComment, TCommentWithChildren, TData } from "src/types/comment";
 
 const getCommentsWithAuthors = (
   comments: InfiniteData<TData | null, unknown> | undefined,
   authorMap: Map<number, TAuthor>,
-  commentsByParent: Map<number | null, TComment[]>,
 ): (TComment | null)[] | null => {
   if (!comments) {
     return null;
@@ -14,15 +13,26 @@ const getCommentsWithAuthors = (
     if (!page) {
       return null;
     }
-    return page?.data
-      .map((comment: TComment) => {
-        const author = authorMap.get(comment.author);
-        // WIP Переделать иммутабельно
-        const updatedComment = { ...comment, authorName: author?.name, avatar: author?.avatar, childrenComments: commentsByParent.get(comment.id) || [] }
-        return comment.parent === null ? updatedComment : null;
-      })
-      .filter(Boolean);
+
+    const checkParents = (currentComment: TComment, allComments: TComment[]): TCommentWithChildren | TComment => {
+      const author = authorMap.get(currentComment.author);
+
+      const childrenComment = allComments.find(({ parent }) => parent === currentComment.id);
+      if (childrenComment) {
+        return { ...currentComment, childrenComments: checkParents(childrenComment, allComments), authorName: author?.name, avatar: author?.avatar }
+      }
+
+      return { ...currentComment, authorName: author?.name, avatar: author?.avatar }
+    }
+
+    const prepareData = (initialData: TComment[]) => {
+      const rootComments = initialData.filter(({ parent }) => !parent);
+      return rootComments.map((rootComment) => checkParents(rootComment, page.data));
+    }
+
+    return prepareData(page.data)
   });
 };
 
 export default getCommentsWithAuthors;
+

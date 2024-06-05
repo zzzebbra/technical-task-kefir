@@ -18,19 +18,8 @@ const CommentsList = ({ likesQuantity, setLikesQuantity }: TProps): JSX.Element 
   const { data: comments, isLoading: isCommentsLoading, fetchNextPage, hasNextPage, isError: isCommentsError, isFetchingNextPage, error: commentsError } = useCommentsQuery();
   const { data: authors, isLoading: isAuthorsLoading } = useAuthorsQuery();
   const authorMap = new Map<number, TAuthor>(authors?.map((author: TAuthor) => [author.id, author]));
-  const commentsByParent = new Map<number | null, TComment[]>();
 
-  comments?.pages.forEach((page) => {
-    page?.data.forEach((comment: TComment) => {
-      const parentId = comment.parent;
-      if (!commentsByParent.has(parentId)) {
-        commentsByParent.set(parentId, []);
-      }
-      commentsByParent.get(parentId)?.push(comment);
-    })
-  });
-
-  const commentsWithAuthors = getCommentsWithAuthors(comments, authorMap, commentsByParent);
+  const commentsWithAuthors = getCommentsWithAuthors(comments, authorMap);
   const isDataFetching = isCommentsLoading && isAuthorsLoading;
 
   return (

@@ -5,11 +5,11 @@ import useCommentsQuery from './hooks/useCommentsQuery';
 
 const App = (): JSX.Element => {
 
-  const { isError: isAuthorsError, isLoading: isAuthorsLoading, } = useAuthorsQuery();
-  const { isLoading: isCommentsLoading, isError: isCommentsError } = useCommentsQuery();
+  const { isError: isAuthorsError } = useAuthorsQuery();
+  const { isLoading: isCommentsLoading } = useCommentsQuery();
 
   return (
-    <div className={ isAuthorsError || isCommentsError || isAuthorsLoading || isCommentsLoading ? "app app_loading" : "app"}>
+    <div className={ isAuthorsError || isCommentsLoading ? "app app_loading" : "app"}>
       <Main />
     </div>
   )
